@@ -39,3 +39,17 @@ buttonSelfComment.click(() => {
       });
   }
 });
+
+// 共有用URLをコピーするボタンの処理
+const buttonCopy = $('#hoge');
+buttonCopy.click(() => {
+  //　テキストエリアを選択
+  $('#shareURL').select();
+  // コピー
+  document.execCommand('copy');
+  // アラート文の表示
+  $('#js-copyalert').show().delay(2000).fadeOut(400);
+  //const testurl = buttonCopy.data('shareURL');
+  //testurl.select();
+  //document.execCommand('copy');
+});
