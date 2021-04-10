@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  
   // loginページ描画前に、どこからログインしようとしたか？を10分cookieに保存
   const from = req.query.from;
   if (from) {
