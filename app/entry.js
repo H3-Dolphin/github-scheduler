@@ -40,6 +40,12 @@ buttonSelfComment.click(() => {
   }
 });
 
+const deleteScheduleButton = $('#delete-schedule-button');
+deleteScheduleButton.submit(() => {
+  if(window.confirm('予定を完全に削除しますか？')) return true;
+  else return false;
+});
+
 // 共有用URLをコピーするボタンの処理
 const buttonCopy = $('#hoge');
 buttonCopy.click(() => {

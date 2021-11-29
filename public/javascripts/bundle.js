@@ -133,6 +133,10 @@ buttonSelfComment.click(function () {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#self-comment').text(data.comment);
     });
   }
+});
+var deleteScheduleButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#delete-schedule-button');
+deleteScheduleButton.submit(function () {
+  if (window.confirm('予定を完全に削除しますか？')) return true;else return false;
 }); // 共有用URLをコピーするボタンの処理
 
 var buttonCopy = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#hoge');
