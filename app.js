@@ -124,6 +124,6 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
+app.use(favicon(path.join(__dirname,'public','favicon.ico')));
 
 module.exports = app;
