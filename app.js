@@ -6,6 +6,7 @@ var logger = require('morgan');
 var helmet = require('helmet');
 var session = require('express-session');
 var passport = require('passport');
+var favicon = require('serve-favicon');
 // モデルの読み込み
 var User = require('./models/user');
 var Schedule = require('./models/schedule');
@@ -122,5 +123,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 module.exports = app;
