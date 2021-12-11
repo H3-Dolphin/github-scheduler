@@ -7,7 +7,9 @@ block content
     div.card-body
       p(style="white-space:pre;") #{schedule.memo}
     div.card-footer
-      p 作成者: #{schedule.user.username}
+      th #{user.username}&ensp;
+        a.gh-page(href="https://github.com/" + user.username, target="_blank")
+          i.fab.fa-github-alt
     div.form-group
       label(for="shareURL") 共有用 URL:
       - var herokuURL = process.env.HEROKU_URL ? process.env.HEROKU_URL : 'http://localhost:8000/'
@@ -24,7 +26,9 @@ block content
     tr
       th 予定
       each user in users
-        th #{user.username}
+        th #{user.username}&ensp;
+          a.gh-page(href="https://github.com/" + user.username, target="_blank")
+            i.fab.fa-github-alt
       th 出席人数
     each candidate in candidates
       - var sum_attend = 0;
