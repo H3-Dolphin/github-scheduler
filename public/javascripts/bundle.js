@@ -137,6 +137,22 @@ buttonSelfComment.click(function () {
 var deleteScheduleButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#delete-schedule-button');
 deleteScheduleButton.submit(function () {
   if (window.confirm('予定を完全に削除しますか？')) return true;else return false;
+});
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.delete-candidate').each(function (i, e) {
+  var button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e);
+  button.click(function () {
+    var scheduleId = button.data('schedule-id');
+    var candidateId = button.data('candidate-id');
+    console.log(candidateId);
+
+    if (candidateId) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/schedules/".concat(scheduleId, "/candidates/").concat(candidateId, "/delete"), {
+        candidateId: candidateId
+      }, function (data) {
+        button.parent().remove();
+      });
+    }
+  });
 }); // 共有用URLをコピーするボタンの処理
 
 var buttonCopy = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#hoge');

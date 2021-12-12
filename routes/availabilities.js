@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const authenticationEnsurer = require('./authentication-ensurer');
 const Availability = require('../models/availability');
+const Candidate = require('../models/candidate');
 
 router.post('/:scheduleId/users/:userId/candidates/:candidateId', authenticationEnsurer, (req, res, next) => {
   const scheduleId = req.params.scheduleId;
