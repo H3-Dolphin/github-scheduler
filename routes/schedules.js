@@ -237,7 +237,9 @@ function createCandidatesAndRedirect(candidateNames, scheduleId, res) {
 }
 
 function parseCandidateNames(req) {
-  return req.body.candidates.trim().split('\n').map((s) => s.trim()).filter((s) => s !== "");
+  return req.body.candidates.trim().split('\n').map((s) => s.trim()).filter((s) => s !== "").filter(Boolean).filter((value, index, array) => {
+    return array.indexOf(value) === index;
+  });
 }
 
 module.exports = router;
