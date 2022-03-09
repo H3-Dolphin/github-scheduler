@@ -30,6 +30,10 @@ var GitHubStrategy = require('passport-github2').Strategy;
 var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID || '2f831cb3d4aac02393aa';
 var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || '9fbc340ac0175123695d2dedfbdf5a78df3b8067';
 
+var TwitterStrategy = require('passport-twitter').Strategy;
+var TWITTER_CONSUMER_KYE = process.env.TWITTER_CONSUMER_KYE || 'hwEdCM37Y74bq9LNhbzjfxfwP';
+var TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET || 'dBaRA9P6WfHAEKDCynmeLUFPd8WaukMLTkAeVnZfRx8wuxT8j7';
+
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -45,6 +49,23 @@ passport.use(new GitHubStrategy({
   callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/github/callback' : 'http://localhost:8000/auth/github/callback'
 },
   function (accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
+      User.upsert({
+        userId: profile.id,
+        username: profile.username
+      }).then(() => {
+        done(null, profile);
+      });
+    });
+  }
+));
+
+passport.use(new TwitterStrategy({
+  consumerKey: TWITTER_CONSUMER_KYE,
+  consumerSecret: TWITTER_CONSUMER_SECRET,
+  callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/twitter/callback' : 'http://localhost:8000/auth/twitter/callback'
+},
+  function (token, tokenSecret, profile, done) {
     process.nextTick(function () {
       User.upsert({
         userId: profile.id,
@@ -90,7 +111,7 @@ app.use('/schedules', commentsRouter);
 app.get('/auth/github',
   passport.authenticate('github', { scope: ['user:email'] }),
   function (req, res) {
-  });
+});
 
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
@@ -102,6 +123,26 @@ app.get('/auth/github/callback',
       !loginFrom.includes('http://') &&
       !loginFrom.includes('https://')) {
       res.clearCookie('loginFrom');
+      res.redirect(loginFrom);
+    } else {
+      res.redirect('/');
+    }
+  });
+
+app.get('/auth/twitter',
+  passport.authenticate('twitter', { scope: ['user:email'] }),
+  function (req, res){
+});
+
+app.get('/auth/twitter/callback',
+  passport.authenticate('twitter', { failureRedirect: '/login' }),
+  function (req, res) {
+    var loginFrom = req.cookies.loginFrom;
+    // githubと同様
+    if (loginFrom &&
+      !loginFrom.includes('http://') &&
+      !loginFrom.includes('https://')) {
+      res.clearCookie('loginForm');
       res.redirect(loginFrom);
     } else {
       res.redirect('/');
@@ -124,6 +165,6 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-app.use(favicon(path.join(__dirname,'public','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 module.exports = app;
