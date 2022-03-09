@@ -4,7 +4,7 @@ const Sequelize = loader.Sequelize;
 
 const Candidate = loader.database.define('candidates', {
   candidateId: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
