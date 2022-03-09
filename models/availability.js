@@ -4,7 +4,7 @@ const Sequelize = loader.Sequelize;
 
 const Availability = loader.database.define('availabilities', {
   candidateId: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     primaryKey: true,
     allowNull: false
   },
@@ -14,7 +14,7 @@ const Availability = loader.database.define('availabilities', {
     allowNull: false
   },
   availability: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
     defaultValue: 0
   },
