@@ -17,7 +17,7 @@ block content
     div
       button(type="button")#hoge.btn.btn-secondary.btn-sm URLをコピー
       p(style="display: none;")#js-copyalert コピーしました
-  - var isMine = parseInt(user.id) === schedule.user.userId
+  - var isMine = user.id === schedule.user.userId
   if isMine
     div
       a(href=`/schedules/${schedule.scheduleId}/edit`).btn.btn-info この予定を編集する
