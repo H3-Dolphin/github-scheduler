@@ -29,14 +29,12 @@ block content
   table.table.table-bordered
     tr
       th 予定
-      each user_tmp in users
+      each user in users
         th #{user.username}&ensp;
-          if user.id.length == 8
-            a.gh-page(href="https://github.com/" + user.username, target="_blank")
-              i.fab.fa-github-alt
-          else
-            a.gh-page(href="https://twitter.com/" + user.username, target="_blank")
-              i.fab.fa-twitter
+          a.gh-page(href="https://github.com/" + user.username, target="_blank")
+            i.fab.fa-github-alt
+          a.gh-page(href="https://twitter.com/" + user.username, target="_blank")
+            i.fab.fa-twitter
 
       th 出席人数
     each candidate in candidates
